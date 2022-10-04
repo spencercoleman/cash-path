@@ -1,0 +1,81 @@
+:root {
+    --color-primary: #1ca559;
+    --color-text: #333;
+    --site-max-width: 900px;
+    --font-sans: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+html {
+    box-sizing: border-box;
+    font-family: var(--font-sans);
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin: 40px auto;
+    color: var(--color-primary);
+    text-align: center;
+}
+  
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+form {
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+    text-align: center;
+    background: #eee;
+    padding: 25px;
+    border-radius: 0.5em;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.8em;
+    color: var(--color-text);
+}
+
+input, select {
+    padding: 6px;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-sans);
+}
+
+input:focus {
+    outline-color: var(--color-primary);
+}
+
+button {
+    color: white;
+    border: 0;
+    background: var(--color-primary);
+    padding: 6px;
+    min-width: 80px;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.wrapper {
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+}
+
+.field {
+    display: inline-block;
+    margin: 0 10px;
+}
