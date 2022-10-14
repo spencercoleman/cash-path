@@ -37,6 +37,9 @@ form.addEventListener('submit', (e) => {
         type: type.value
     });
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(txArr));
+    tofrom.value = '';
+    details.value = '';
+    amount.value = '';
 });
 txArr.forEach(tx => {
     const doc = createDoc(tx.details, tx.type);

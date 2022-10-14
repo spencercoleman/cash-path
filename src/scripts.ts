@@ -56,6 +56,10 @@ form.addEventListener('submit', (e: Event) => {
     });
 
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(txArr));
+
+    tofrom.value = '';
+    details.value = '';
+    amount.value = '';
 });
 
 txArr.forEach(tx => {

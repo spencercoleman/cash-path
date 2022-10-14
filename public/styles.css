@@ -19,12 +19,14 @@ html {
 body {
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 h1 {
-    margin: 40px auto;
+    margin: 0;
     color: var(--color-primary);
-    text-align: center;
+    font-size: 21px;
 }
   
 ul {
@@ -32,13 +34,36 @@ ul {
     list-style-type: none;
 }
 
+li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+li > strong {
+    color: rgb(163, 162, 162);
+    font-weight: 500;
+}
+
+li > p {
+    margin: 0;
+}
+
+aside {
+    background-color: #eee;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
 form {
-    max-width: var(--site-max-width);
-    margin: 0 auto;
     text-align: center;
-    background: #eee;
-    padding: 25px;
     border-radius: 0.5em;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    position: sticky;
+    top: 0;
 }
 
 label {
@@ -46,6 +71,8 @@ label {
     font-weight: 600;
     font-size: 0.8em;
     color: var(--color-text);
+    margin-bottom: 8px;
+    text-align: left;
 }
 
 input, select {
@@ -53,6 +80,7 @@ input, select {
     border: none;
     border-radius: 4px;
     font-family: var(--font-sans);
+    width: 100%;
 }
 
 input:focus {
@@ -63,19 +91,39 @@ button {
     color: white;
     border: 0;
     background: var(--color-primary);
-    padding: 6px;
+    padding: 8px;
     min-width: 80px;
     border-radius: 4px;
     font-weight: 600;
     cursor: pointer;
 }
 
-.wrapper {
-    max-width: var(--site-max-width);
-    margin: 0 auto;
+header {
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    padding: 16px;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+    width: 100%;
 }
 
-.field {
-    display: inline-block;
-    margin: 0 10px;
+ul {
+    padding: 0 16px;
+}
+
+.wrapper {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    body {
+        flex-direction: row;
+    }
+
+    aside {
+        position: relative;
+        z-index: 10;
+        height: 100vh;
+        width: 350px;
+    }
 }
