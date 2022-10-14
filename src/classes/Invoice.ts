@@ -8,6 +8,6 @@ export class Invoice implements HasFormatter {
     ) {}
 
     format() {
-        return `${this.client} owes $${this.amount} for ${this.details}.`
+        return `${this.client.slice(0, 1).toUpperCase() + this.client.slice(1)} owes $${this.amount.toLocaleString()} for ${this.details}.`
     }
 }

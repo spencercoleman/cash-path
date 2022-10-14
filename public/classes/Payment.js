@@ -5,6 +5,6 @@ export class Payment {
         this.amount = amount;
     }
     format() {
-        return `${this.recipient} is owed $${this.amount} for ${this.details}.`;
+        return `${this.recipient.slice(0, 1).toUpperCase() + this.recipient.slice(1)} is owed $${this.amount.toLocaleString()} for ${this.details}.`;
     }
 }
