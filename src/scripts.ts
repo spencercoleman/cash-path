@@ -12,16 +12,53 @@ const amount = document.querySelector('#amount') as HTMLInputElement;
 const ul = document.querySelector('ul')!;
 const itemList = new ListTemplate(ul);
 
-form.addEventListener('submit', (e: Event) => {
-    e.preventDefault();
+type docDetails = {tofrom: string, details: string, amount: number};
 
+const LOCAL_STORAGE_KEY: string = 'cash_path_txs';
+
+const txs: string | null = localStorage.getItem(LOCAL_STORAGE_KEY);
+const txArr: {
+    details: docDetails,
+    type: string
+}[] = txs ? JSON.parse(txs) : [];
+
+const createDoc = (docDetails: docDetails, type: string) => {
     let doc: HasFormatter;
+    
+    let values: [string, string, number];
+    values = [docDetails.tofrom, docDetails.details, docDetails.amount];
 
-    if (type.value === 'invoice') {
-        doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber);
+    if (type === 'invoice') {
+        doc = new Invoice(...values);
     } else {
-        doc = new Payment(tofrom.value, details.value, amount.valueAsNumber);
+        doc = new Payment(...values);
     }
 
+    return doc;
+}
+
+form.addEventListener('submit', (e: Event) => {
+    e.preventDefault();
+    
+    const docDetails = {
+        tofrom: tofrom.value,
+        details: details.value,
+        amount: amount.valueAsNumber
+    }
+
+    const doc = createDoc(docDetails, type.value);
+
     itemList.render(doc, type.value, 'end');
+
+    txArr.push({
+        details: docDetails,
+        type: type.value
+    });
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(txArr));
+});
+
+txArr.forEach(tx => {
+    const doc = createDoc(tx.details, tx.type);
+    itemList.render(doc, tx.type, 'end');
 })

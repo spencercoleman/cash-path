@@ -8,14 +8,37 @@ const details = document.querySelector('#details');
 const amount = document.querySelector('#amount');
 const ul = document.querySelector('ul');
 const itemList = new ListTemplate(ul);
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
+const LOCAL_STORAGE_KEY = 'cash_path_txs';
+const txs = localStorage.getItem(LOCAL_STORAGE_KEY);
+const txArr = txs ? JSON.parse(txs) : [];
+const createDoc = (docDetails, type) => {
     let doc;
-    if (type.value === 'invoice') {
-        doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber);
+    let values;
+    values = [docDetails.tofrom, docDetails.details, docDetails.amount];
+    if (type === 'invoice') {
+        doc = new Invoice(...values);
     }
     else {
-        doc = new Payment(tofrom.value, details.value, amount.valueAsNumber);
+        doc = new Payment(...values);
     }
+    return doc;
+};
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const docDetails = {
+        tofrom: tofrom.value,
+        details: details.value,
+        amount: amount.valueAsNumber
+    };
+    const doc = createDoc(docDetails, type.value);
     itemList.render(doc, type.value, 'end');
+    txArr.push({
+        details: docDetails,
+        type: type.value
+    });
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(txArr));
+});
+txArr.forEach(tx => {
+    const doc = createDoc(tx.details, tx.type);
+    itemList.render(doc, tx.type, 'end');
 });
